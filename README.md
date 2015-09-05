@@ -41,7 +41,7 @@ public class PrintAction implements SAction {
 
 now you can send this message to the other side and code defined in perform method will be executed
 ```java
-client.send(new TestAction("This will be printed on server side!"));
+client.send(new PrintAction("This will be printed on server side!"));
 ```
 
 ==============
