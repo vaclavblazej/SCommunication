@@ -76,11 +76,11 @@ public class SCommunicationServerCreateService implements Runnable {
                     continue;
                 }
                 int id = connectionsCounter;
+                connections.put(id, h);
                 while (connections.containsKey(connectionsCounter)) {
                     connectionsCounter = (connectionsCounter + 1) % MAXIMUM_CONNECTIONS;
                 }
                 logger.info("Server: client with id=" + id + " connected");
-                connections.put(id, h);
                 sListener.connectionCreated(id);
             } catch (SocketException ex) {
                 logger.info("Server: connection closed");

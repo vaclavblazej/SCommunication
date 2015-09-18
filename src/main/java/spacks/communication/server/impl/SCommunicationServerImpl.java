@@ -6,8 +6,10 @@ import spacks.communication.utilities.SAction;
 import spacks.communication.utilities.SListener;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -49,10 +51,21 @@ public class SCommunicationServerImpl implements SCommunicationServer {
     }
 
     @Override
+    public void sendToGroup(Collection<Integer> ids, SAction action) throws IOException {
+        for (int id : ids) send(id, action);
+    }
+
+    @Override
     public void broadcast(SAction action) throws IOException {
         for (Integer connection : connections.keySet()) {
             send(connection, action);
         }
+    }
+
+    @Override
+    public void broadcastExceptOne(int leftOut, SAction action) throws IOException {
+        final Set<Integer> ids = connections.keySet();
+        for (int id : ids) if (id != leftOut) send(id, action);
     }
 
     @Override
